@@ -12,7 +12,6 @@ export const RegisterUserSchema = z.object({
     })
     .min(1, "Email is required")
     .email("Email is invalid"),
-  photo: z.string().optional(),
   password: z
     .string({
       required_error: "Password is required",

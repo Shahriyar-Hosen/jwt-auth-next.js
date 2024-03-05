@@ -12,16 +12,12 @@ import { ZodError } from "zod";
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as RegisterUserInput;
-    const data = RegisterUserSchema.parse(body);
+    const { name, email, password } = RegisterUserSchema.parse(body);
 
-    const hashedPassword = await hash(data.password, 12);
+    const hashedPassword = await hash(password, 12);
 
     const user = await prisma.user.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        password: hashedPassword,
-      },
+      data: { name, email, password: hashedPassword },
     });
 
     const JWT_EXPIRES_IN = getEnvVariable("JWT_EXPIRES_IN");
