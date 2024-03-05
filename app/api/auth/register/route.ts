@@ -9,7 +9,7 @@ import { hash } from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
   try {
     const body = (await req.json()) as RegisterUserInput;
     const { name, email, password } = RegisterUserSchema.parse(body);
@@ -69,4 +69,4 @@ export async function POST(req: NextRequest) {
 
     return getErrorResponse(500, error.message);
   }
-}
+};

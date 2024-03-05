@@ -2,7 +2,7 @@ import { getErrorResponse } from "@/lib/helpers";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
   const userId = req.headers.get("X-USER-ID");
 
   if (!userId) {
@@ -18,4 +18,4 @@ export async function GET(req: NextRequest) {
     status: "success",
     data: { user: { ...user, password: undefined } },
   });
-}
+};
